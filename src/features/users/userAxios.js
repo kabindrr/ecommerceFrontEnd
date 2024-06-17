@@ -1,4 +1,4 @@
-import { apiProcessor } from "../services/axios";
+import { apiProcessor } from "../../services/axios";
 
 const userEP = import.meta.env.VITE_APP_SERVER_ROOT + "/api/v1/users";
 
@@ -7,7 +7,7 @@ export const postNewUser = (data) => {
     url: userEP,
     method: "post",
     data,
-    isPrivate,
+    // isPrivate: true,
   };
   return apiProcessor(obj);
 };

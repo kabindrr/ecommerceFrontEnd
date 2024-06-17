@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-import { postNewUser } from "../userAxios";
+import { postNewUser } from "./userAxios";
 
 const apiProcessWithToast = async (obj, func) => {
   const pending = func(obj);

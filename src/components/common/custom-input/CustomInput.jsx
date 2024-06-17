@@ -1,9 +1,10 @@
-import React from "react";
+import { Form } from "react-bootstrap";
 
-export const CustomInput = () => {
+export const CustomInput = ({ label, ...rest }) => {
   return (
-    <Form.Group controlId="formBasicEmail">
-      {label && <Form.Label>Email address</Form.Label>}
+    <Form.Group>
+      {label && <Form.Label>{label}</Form.Label>}
+      <Form.Control {...rest} />
     </Form.Group>
   );
 };

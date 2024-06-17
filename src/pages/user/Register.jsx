@@ -1,10 +1,17 @@
 import React from "react";
-import { Form, Placeholder } from "react-bootstrap";
-import useForm from "../hooks/useForm";
-import { CustomInput } from "../components/common/custom-input/CustomInput";
+import { Button, Form, Placeholder } from "react-bootstrap";
+import useForm from "../../hooks/useForm";
+import { CustomInput } from "../../components/common/custom-input/CustomInput";
+import { createNewAdminAction } from "../../features/users/userAction";
 
-export const Register = () => {
-  const { form, setForm, handleOnChange } = useForm("");
+const Register = () => {
+  const { form, setForm, handleOnChange } = useForm({});
+
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+
+    createNewAdminAction(form);
+  };
 
   const inputs = [
     {
@@ -53,16 +60,17 @@ export const Register = () => {
   return (
     <div className="d-flex justify-content-center align-items-center vh-100 ">
       <div className="" style={{ width: "450px" }}>
-        <Form className="shadow-lg p-3 rounded">
+        <Form className="shadow-lg p-3 rounded" onSubmit={handleOnSubmit}>
           <h3>Admin Registration</h3>
           {inputs.map((item, i) => (
             <CustomInput key={i} {...item} onChange={handleOnChange} />
           ))}
           <div className="d-grid">
-            <Button type="submit"> Register New Admin</Button>
+            <Button type="submit"> Register New Admin </Button>
           </div>
         </Form>
       </div>
     </div>
   );
 };
+export default Register;

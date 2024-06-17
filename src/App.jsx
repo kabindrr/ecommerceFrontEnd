@@ -1,8 +1,8 @@
 import "./App.css";
 import { ToastContainer } from "react-toastify";
-import { Button } from "react-bootstrap";
 import { Route, Routes } from "react-router-dom";
-import Login from "./user/Login";
+import Login from "./pages/user/Login";
+import Register from "./pages/user/Register";
 
 const App = () => {
   return (
@@ -12,9 +12,10 @@ const App = () => {
         <Route path="/" element={<Login />} />
 
         {/* private routes */}
+
+        <Route path="admin/new" element={<Register />} />
       </Routes>
       <ToastContainer />
-      <Button>Submit</Button>
     </div>
   );
 };
