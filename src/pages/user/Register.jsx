@@ -3,14 +3,19 @@ import { Button, Form, Placeholder } from "react-bootstrap";
 import useForm from "../../hooks/useForm";
 import { CustomInput } from "../../components/common/custom-input/CustomInput";
 import { createNewAdminAction } from "../../features/users/userAction";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const { form, setForm, handleOnChange } = useForm({});
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
+    const { confirmPassword, ...rest } = form;
 
-    createNewAdminAction(form);
+    if (confirmPassword !== rest.password) {
+      return toast.error("Password do not match");
+    }
+    createNewAdminAction(rest);
   };
 
   const inputs = [
@@ -19,42 +24,42 @@ const Register = () => {
       name: "fName",
       type: "text",
       required: true,
-      Placeholder: "sam",
+      placeholder: "sam",
     },
     {
       label: "Last Name",
       name: "lName",
       type: "text",
       required: true,
-      Placeholder: "Smith",
+      placeholder: "Smith",
     },
     {
       label: "phone",
       name: "phone",
       type: "number",
 
-      Placeholder: "1234567890",
+      placeholder: "1234567890",
     },
     {
       label: "Email",
       name: "email",
       type: "email",
       required: true,
-      Placeholder: "email@gmail.com",
+      placeholder: "email@gmail.com",
     },
     {
       label: "Password",
       name: "password",
       type: "password",
       required: true,
-      Placeholder: "**********",
+      placeholder: "**********",
     },
     {
       label: "Confirm Password",
       name: "confirmPassword",
       type: "password",
       required: true,
-      Placeholder: "**********",
+      placeholder: "**********",
     },
   ];
   return (
@@ -66,7 +71,10 @@ const Register = () => {
             <CustomInput key={i} {...item} onChange={handleOnChange} />
           ))}
           <div className="d-grid">
-            <Button type="submit"> Register New Admin </Button>
+            <Button className="mt-3" type="submit">
+              {" "}
+              Register New Admin{" "}
+            </Button>
           </div>
         </Form>
       </div>
