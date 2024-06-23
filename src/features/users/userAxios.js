@@ -18,5 +18,5 @@ export const verifyUserLink = (data) => {
     data,
     // isPrivate: true,
   };
-  return apiProcessor(data);
+  return apiProcessor(obj);
 };
