@@ -1,5 +1,11 @@
 import { toast } from "react-toastify";
-import { postNewUser, verifyUserLink } from "./userAxios";
+import {
+  fetchUserProfile,
+  postNewUser,
+  userLogin,
+  verifyUserLink,
+} from "./userAxios";
+import { setUser } from "./userSlice";
 
 const apiProcessWithToast = async (obj, func) => {
   const pending = func(obj);
@@ -20,4 +26,26 @@ export const createNewAdminAction = async (userData) => {
 
 export const verifyUserLinkAction = async (data) => {
   apiProcessWithToast(data, verifyUserLink);
+};
+
+export const loginAdminAction = (data) => async (dispatch) => {
+  const { status, jwts } = await userLogin(data);
+
+  if (jwts.accessJWT && jwts?.refreshJWT) {
+    sessionStorage.setItem("accessJWT", jwts.accessJWT);
+    localStorage.setItem("refreshJWT", jwts.refreshJWT);
+
+    dispatch(fetchUserProfileAction());
+  }
+
+  //if login successful
+};
+export const fetchUserProfileAction = () => async (dispatch) => {
+  const { status, userInfo } = await fetchUserProfile();
+
+  if (status === "success") {
+    //mount user in the redux store
+    console.log(userInfo);
+    dispatch(setUser(userInfo));
+  }
 };

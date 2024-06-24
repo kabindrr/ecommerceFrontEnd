@@ -20,3 +20,21 @@ export const verifyUserLink = (data) => {
   };
   return apiProcessor(obj);
 };
+export const userLogin = (data) => {
+  const obj = {
+    url: userEP + "/user-verification",
+    method: "post",
+    data,
+    showToast: true,
+  };
+  return apiProcessor(obj);
+};
+export const fetchUserProfile = () => {
+  const obj = {
+    url: userEP,
+    method: "get",
+
+    isPrivate: true,
+  };
+  return apiProcessor(obj);
+};
